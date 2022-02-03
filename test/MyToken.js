@@ -1,4 +1,5 @@
-const BigNumber = web3.BigNumber;
+// const BigNumber = web3.BigNumber;
+const BigNumber = require('bignumber.js');
 
 const MyToken = artifacts.require("MyToken");
 
@@ -12,7 +13,7 @@ contract('MyToken', accounts => {
     const _name = "Adi Oz Token";
     const _symbol = "ADIOZ";
     const _decimals = 10;
-    const _initialSupply = 1000000
+    const _initialSupply = 1000000;
     beforeEach(async function () {
         this.token = await MyToken.new(_name, _symbol, _initialSupply);
     });
@@ -36,7 +37,8 @@ contract('MyToken', accounts => {
 
         it('has the correct supply', async function(){
             const initialSupply = await this.token.totalSupply();
-            initialSupply.should.be.bignumber.equal(_initialSupply);
+            assert.equal(initialSupply.toString(), (_initialSupply*Math.pow(10,10)).toString());
+            // initialSupply.should.be.bignumber.equal(_initialSupply);
         });
 
     })
